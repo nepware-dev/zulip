@@ -252,6 +252,7 @@ class Realm(models.Model):
         "GitLab",
         "Apple",
         "OpenID Connect",
+        "Mero guru",
     ]
     SUBDOMAIN_FOR_ROOT_DOMAIN = ""
     WILDCARD_MENTION_THRESHOLD = 15

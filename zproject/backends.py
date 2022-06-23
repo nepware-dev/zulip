@@ -58,6 +58,7 @@ from social_core.backends.base import BaseAuth
 from social_core.backends.github import GithubOAuth2, GithubOrganizationOAuth2, GithubTeamOAuth2
 from social_core.backends.gitlab import GitLabOAuth2
 from social_core.backends.google import GoogleOAuth2
+from social_core.backends.oauth import BaseOAuth2
 from social_core.backends.open_id_connect import OpenIdConnectAuth
 from social_core.backends.saml import SAMLAuth, SAMLIdentityProvider
 from social_core.exceptions import (
@@ -1963,6 +1964,28 @@ class GitLabAuthBackend(SocialAuthMixin, GitLabOAuth2):
     # authentication like we do for the GitHub integration.  Instead,
     # we just use the primary email address, which is always verified.
     # (No code is required to do so, as that's the default behavior).
+
+
+@external_auth_method
+class MeroGuruAuthBackend(SocialAuthMixin, BaseOAuth2)
+    name = "mero_guru"
+    AUTHORIZATION_URL = settings.MEROGURU_AUTHORIZATION_URL
+    ACCESS_TOKEN_URL = settings.MEROGURU_ACCESS_TOKEN_URL
+    API_URL = settings.MEROGURU_API_URL
+    ACCESS_TOKEN_METHOD = 'POST'
+    SCOPE_SEPARATOR = ','
+
+    def get_user_details(self, response):
+        return {'username': response.get('username'),
+                'first_name': response.get('first_name')}
+
+    def user_data(self, access_token, *args, **kwargs):
+        """Loads user data from service"""
+        url = API_URL + "/me"
+        headers = {
+            f"Authorization: Bearer {access_token}"
+        }
+        return self.get_json(url)
 
 
 @external_auth_method

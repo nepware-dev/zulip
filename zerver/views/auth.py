@@ -96,6 +96,7 @@ from zproject.backends import (
     password_auth_enabled,
     saml_auth_enabled,
     validate_otp_params,
+    MeroGuruAuthBackend
 )
 
 ExtraContext = Optional[Dict[str, Any]]

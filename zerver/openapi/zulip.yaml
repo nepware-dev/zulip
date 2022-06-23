@@ -12324,6 +12324,10 @@ paths:
                             description: |
                               Whether the user can authenticate using their Google account.
                             type: boolean
+                          mero_guru:
+                            description: |
+                              Whether the user can authenticate using their Mero guru account.
+                            type: boolean
                           saml:
                             description: |
                               Whether the user can authenticate using SAML.
